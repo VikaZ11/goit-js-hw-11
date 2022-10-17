@@ -7,6 +7,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const pixabay = new PixabayAPI();
+const lightbox = new SimpleLightbox('.gallery__item');
 
 const options = {
   root: null,
@@ -19,14 +20,12 @@ const callback = async function (entries, observer) {
       pixabay.incrementPage();
       observer.unobserve(entry.target);
 
-
       try {
         const { hits } = await pixabay.getPhotos();
         const markup = createMarkup(hits);
 
         refs.list.insertAdjacentHTML('beforeend', markup);
-        lightbox.destroy();
-        const lightbox = new SimpleLightbox('.gallery__item');
+
         lightbox.refresh();
 
         if (pixabay.isShowLoadMore) {
