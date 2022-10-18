@@ -67,6 +67,8 @@ const handleSubmit = async event => {
     const markup = createMarkup(hits);
     refs.list.insertAdjacentHTML('beforeend', markup);
 
+    lightbox.refresh();
+
     pixabay.calculateTotalPages(total);
     Notify.success(`Hooray! We found ${total} images.'.`);
 
@@ -79,8 +81,6 @@ const handleSubmit = async event => {
     Notify.failure(error.message);
     clearPage();
   }
-
-  const lightbox = new SimpleLightbox('.gallery__item');
 };
 
 // const onLoadMoreClick = async function(){
